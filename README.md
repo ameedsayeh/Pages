@@ -225,7 +225,9 @@ All of the demos shown on the GIF can be checked out on the [demo repo](https://
 
 Pages is available using the [Swift Package Manager](https://swift.org/package-manager/):
 
-Using Xcode 11, go to `File -> Swift Packages -> Add Package Dependency` and enter https://github.com/nachonavarro/Pages
+Using Xcode 11, go to `File -> Swift Packages -> Add Package Dependency` and enter https://github.com/ameedsayeh/Pages
+
+Forked from https://github.com/nachonavarro/Pages
 
 ## Running the tests
 
