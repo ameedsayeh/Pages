@@ -88,7 +88,7 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
         control: UIPageControl? = nil,
         controlAlignment: Alignment = .bottom,
         template: @escaping (Int, Data.Element) -> Content,
-        didSwitchPage: ((Int) -> Void)?
+        didSwitchPage: ((Int) -> Void)? = nil
     ) {
         self._currentPage = currentPage
         self.navigationOrientation = navigationOrientation
