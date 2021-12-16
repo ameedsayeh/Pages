@@ -41,6 +41,7 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
     private var hasControl: Bool
     private var pageControl: UIPageControl? = nil
     private var controlAlignment: Alignment
+    private var didSwitchPage: ((Int) -> Void)?
 
     /**
     Creates the paging view that generates pages dynamically based on some user-defined data.
@@ -86,7 +87,8 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
         hasControl: Bool = true,
         control: UIPageControl? = nil,
         controlAlignment: Alignment = .bottom,
-        template: @escaping (Int, Data.Element) -> Content
+        template: @escaping (Int, Data.Element) -> Content,
+        didSwitchPage: ((Int) -> Void)?
     ) {
         self._currentPage = currentPage
         self.navigationOrientation = navigationOrientation
@@ -98,6 +100,7 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
         self.controlAlignment = controlAlignment
         self.items = items.map { $0 }
         self.template = template
+        self.didSwitchPage = didSwitchPage
     }
 
     public var body: some View {
@@ -112,8 +115,9 @@ public struct ModelPages<Data, Content>: View where Data: RandomAccessCollection
                     let h = UIHostingController(rootView: template(i, items[i]))
                     h.view.backgroundColor = .clear
                     return h
+                }) { index in
+                    self.didSwitchPage?(index)
                 }
-            )
             if self.hasControl {
                 PageControl(
                     numberOfPages: items.count,
