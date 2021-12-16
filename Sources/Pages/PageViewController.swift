@@ -37,6 +37,7 @@ struct PageViewController: UIViewControllerRepresentable {
     var bounce: Bool
     var wrap: Bool
     var controllers: [UIViewController]
+    var didSwitchPage: ((Int) -> Void)?
 
     func makeCoordinator() -> PagesCoordinator {
         PagesCoordinator(self)
@@ -113,6 +114,7 @@ class PagesCoordinator: NSObject, UIPageViewControllerDataSource,
         let visibleViewController = pageViewController.viewControllers?.first,
         let index = parent.controllers.firstIndex(of: visibleViewController) {
             parent.currentPage = index
+            parent.didSwitchPage?(index)
         }
     }
 }
